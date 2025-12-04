@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} - ShopHub{% endblock %}
+
+{% block content %}
+<div class="product-detail">
+    <div class="product-detail-image">
+        <img src="{{ product.image }}" alt="{{ product.name }}" loading="eager" onerror="this.src='https://picsum.photos/600/600?random={{ product.id }}'">
+    </div>
+    <div class="product-detail-info">
+        <h1>{{ product.name }}</h1>
+        <p class="product-price-large">${{ "%.2f"|format(product.price) }}</p>
+        <p class="product-description">{{ product.description }}</p>
+        
+        <form method="POST" action="{{ url_for('add_to_cart', product_id=product.id) }}" class="add-to-cart-form">
+            <div class="quantity-selector">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" value="1" min="1" max="10">
+            </div>
+            <button type="submit" class="btn btn-primary btn-large">Add to Cart</button>
+        </form>
+        
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Continue Shopping</a>
+    </div>
+</div>
+{% endblock %}
+
